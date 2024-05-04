@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Furnilux</title>
 
-    <!-- Vue CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Vue CDN --> <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
     <!-- Tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -22,18 +21,18 @@
       <nav
         class="flex justify-between bg-[#29374a] px-10 py-4 mb-8 text-white"
       >
-        <h1 class="font-bold text-2xl opacity-80">Furnilux</h1>
-        <ul class="flex items-center space-x-10">
-          <li>
+        <h1 class="text-center font-bold text-2xl opacity-80">Furnilux</h1>
+        <ul class="md:flex items-center space-x-10">
+          <li class="hidden md:block">
             <a href="#">Home</a>
           </li>
-          <li>
+          <li class="hidden md:block">
             <a href="#">Product</a>
           </li>
-          <li>
+          <li class="hidden md:block">
             <a href="#">Service</a>
           </li>
-          <li>
+          <li class="hidden md:block">
             <a href="#">Contact us</a>
           </li>
           <div class="flex space-x-5">
@@ -54,7 +53,7 @@
       </nav>
       <div class="relative overflow-x-auto rounded-md">
 
-      <form class="max-w-md mx-auto mb-6">   
+      <form class="px-8 max-w-md mx-auto mb-6">   
           <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div class="relative">
               <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -66,8 +65,9 @@
           </div>
       </form>
 
+      <div class="overflow-x-auto">
         <table
-          class="w-[90%] mx-auto mt-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-md text-lg"
+          class="table-auto w-[90%] mx-auto mt-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 rounded-md text-lg"
         >
           <thead
             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
@@ -96,8 +96,8 @@
                 {{products.name}}
               </th>
               <td class="px-2 py-2">Rp {{products.price}}</td>
-              <td class="px-2 py-2 text-center">{{products.quantity}}</td>
-              <td class="px-2 py-2">
+              <td class="px-2 py-2 text-center">{{products.stock}}</td>
+              <td class="px-2 py-2 text-center">
                 <button
                   @click="lihatProduk(products.id, products.gambar, products.name, products.price, products.stock, products.description)"
                   class="focus:outline-none text-white mx-auto  bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -110,11 +110,12 @@
             </tr>
           </tbody>
         </table>
-        <footer class="mt-12 w-full bg-[#29374a] p-4 text-white">
-          <h1 class="text-center text-sm opacity-80">Furnilux © 2024</h1>
-        </footer>
       </div>
+      <footer class="mt-12 w-full bg-[#29374a] p-4 text-white">
+        <h1 class="text-center text-sm opacity-80">Furnilux © 2024</h1>
+      </footer>
     </div>
+  </div>
     <script>
       var app = new Vue({
         el: "#app",
