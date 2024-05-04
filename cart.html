@@ -18,8 +18,8 @@
   <div id="app">
     <div class="p-8">
       <h1 class="bg-red-500 p-4 rounded-md mb-8">Cart</h1>
-      <div class="flex justify-between">
-        <ul v-if="cartItems.length > 0" class="bg-blue-800 px-7 w-full">
+      <div class="flex justify-between" v-if="cartItems.length > 0">
+        <ul class="bg-blue-800 px-7 w-full">
           <li v-for="item in cartItems" :key="item.id" class="mt-8 flex space-x-3 items-center">
             <img :src="item.gambar" alt="Product Image" width="150">
             <div>
