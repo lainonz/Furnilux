@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<style>
+  body {
+    background-color: #1f2937;
+    color: white;
+  }
+</style>
+<body>
+  <div id="app">
+    <div class="p-8">
+      <h1 class="bg-red-500 p-4 rounded-md mb-8">Cart</h1>
+      <div class="flex justify-between">
+        <ul v-if="cartItems.length > 0" class="bg-blue-800 px-7 w-full">
+          <li v-for="item in cartItems" :key="item.id" class="mt-8 flex space-x-3 items-center">
+            <img :src="item.gambar" alt="Product Image" width="150">
+            <div>
+              <p class="text-2xl font-bold">{{ item.name }}</p>
+              <p>{{ item.description }}</p>
+              <p>Rp {{ item.price }}</p>
+              <p>Total barang: {{ item.quantity }}</p>
+            </div>
+          </li>
+        </ul>
+        <div class="w-[30%]">
+          <p class="font-bold text-center">Metode Pembayaran</p>
+          <ul class="flex flex-col items-center">
+            <li>item 1</li>
+            <li>item 1</li>
+            <li>item 1</li>
+            <li>item 1</li>
+          </ul>
+        </div>
+      </div>
+      <div v-else>
+        <p>Belum ada barang nih</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const listKeranjang = JSON.parse(localStorage.getItem('listKeranjang')) || [];
+
+      new Vue({
+        el: '#app',
+        data: {
+          cartItems: listKeranjang
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
