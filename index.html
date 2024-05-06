@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
@@ -38,9 +38,9 @@
           <div class="flex space-x-5">
           <li class="flex items-center" @click="cekCart()">
             <button type="button" class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px] mr-4" fill="white" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-            Cart
-            <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{{keranjang}}</div>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px] mr-4" fill="white" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+              Cart
+              <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{{totalBarang}}</div>
             </button>
           </li>
           <li class="flex items-center" @click="clearCart()">
@@ -74,9 +74,8 @@
           >
             <tr>
               <th scope="col" class="px-6 py-3">Gambar Produk</th>
-              <th scope="col" class="px-6 py-3">Product name</th>
-              <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3 text-center">Stock</th>
+              <th scope="col" class="px-6 py-3">Nama Produk</th>
+              <th scope="col" class="px-6 py-3">Harga</th>
               <th scope="col" class="px-6 py-3 text-center">Aksi</th>
             </tr>
           </thead>
@@ -95,13 +94,12 @@
               >
                 {{products.name}}
               </th>
-              <td class="px-2 py-2">Rp {{products.price}}</td>
-              <td class="px-2 py-2 text-center">{{products.stock}}</td>
+              <td class="px-2 py-2">{{products.price | currency}}</td>
               <td class="px-2 py-2 text-center">
                 <button
-                  @click="lihatProduk(products.id, products.gambar, products.name, products.price, products.stock, products.description)"
+                  @click="lihatProduk(products.id, products.gambar, products.name, products.price, products.description)"
                   class="focus:outline-none text-white mx-auto  bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >View</button>
+                >Lihat</button>
                 <button
                   @click="tambahKeranjang(products)"
                   class="focus:outline-none text-white mx-auto  bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -117,11 +115,19 @@
     </div>
   </div>
     <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const barangKeranjang = localStorage.getItem('totalBarang') || 0;
+
+      Vue.filter('currency', function (value) {
+        if (!value) return ''
+        return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value)
+      });
       var app = new Vue({
         el: "#app",
         data: {
           keranjang: 0,
           search: '',
+          totalBarang: barangKeranjang,
           listKeranjang: [],
           product: [
             {
@@ -130,8 +136,7 @@
                 "assets/kasur.png",
               name: "Kasur",
               price: 800000,
-              stock: 1,
-              description: "test"
+              description: "Rasakan tidur yang nyaman dengan kasur berkualitas tinggi ini. Dibuat dengan bahan yang berkualitas untuk memberikan dukungan yang tepat dan tidur yang nyenyak setiap malam."
             },
             {
               id: 2,
@@ -139,8 +144,7 @@
                 "assets/kursi.png",
               name: "Kursi",
               price: 300000,
-              stock: 1,
-              description: "test"
+              description: "Hadirkan kenyamanan maksimal ke ruang tamu atau kantor Anda dengan kursi ergonomis ini. Dirancang dengan perhatian pada detail untuk memberikan dukungan yang optimal dan gaya yang menawan."
             },
             {
               id: 3,
@@ -148,8 +152,7 @@
                 "assets/lemari_belajar.png",
               name: "Lemari Belajar",
               price: 700000,
-              stock: 1,
-              description: "test"
+              description: "Tingkatkan pengalaman belajar Anda dengan lemari belajar ini. Dilengkapi dengan rak dan laci yang cukup untuk menyimpan buku, alat tulis, dan perlengkapan belajar lainnya dengan rapi."
             },
             {
               id: 4,
@@ -157,8 +160,7 @@
                 "assets/lemari.png",
               name: "Lemari",
               price: 600000,
-              stock: 1,
-              description: "test"
+              description: "Tambahkan sentuhan elegan ke ruang Anda dengan lemari ini. Didesain dengan desain yang klasik dan fungsional, lemari ini ideal untuk menyimpan pakaian dan barang-barang lainnya dengan teratur."
             },
             {
               id: 5,
@@ -166,13 +168,19 @@
                 "assets/sofa.png",
               name: "Sofa",
               price: 550000,
-              stock: 1,
-              description: "test"
+              description: "Ciptakan suasana yang hangat dan nyaman di ruang keluarga atau ruang tamu Anda dengan sofa ini. Dibuat dengan bahan berkualitas dan desain yang stylish, sofa ini akan menjadi pusat perhatian dalam ruangan."
             },
           ],
         },
         methods: {
           tambahKeranjang(product) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Barang Berhasil Ditambahkan",
+              showConfirmButton: false,
+              timer: 500
+            });
             const existingProduct = this.listKeranjang.find(item => item.id === product.id);
 
             if (existingProduct) {
@@ -188,7 +196,7 @@
               });
             }
 
-            this.keranjang++;
+            localStorage.setItem('totalBarang', this.totalBarang += 1);
             localStorage.setItem('listKeranjang', JSON.stringify(this.listKeranjang));
           },
           clearCart() {
@@ -208,7 +216,9 @@
                   icon: "success",
                 });
                 localStorage.removeItem('listKeranjang');
+                localStorage.removeItem('totalBarang');
                 this.keranjang = 0;
+                this.totalBarang = 0;
                 this.listKeranjang = []
               }
             });
@@ -216,8 +226,8 @@
           cekCart() {
             window.location = "cart.html";
           },
-          lihatProduk(id, gambar, name, price, stock, description) {
-            window.location = "product.html?id=" + id + "&gambar=" + gambar + "&name=" + name + "&price=" + price + "&stock=" + stock + "&desc=" + description
+          lihatProduk(id, gambar, name, price, description) {
+            window.location = "product.html?id=" + id + "&gambar=" + gambar + "&name=" + name + "&price=" + price + "&desc=" + description
           }
         },
         computed: {
@@ -227,13 +237,14 @@
             return item.name.toLowerCase().indexOf(self.search.toLowerCase()) !== -1;
           });
           }
-        }
+        },
       });
 
       tailwind.config = {
         content: ["./*.html"],
         darkMode: "class"
       };
+    });
 
     </script>
   </body>
