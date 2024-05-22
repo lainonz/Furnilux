@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Furnilux</title>
 
-    <!-- Vue CDN --> <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <!-- Vue CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 
     <!-- Tailwindcss CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <style>
@@ -23,36 +26,24 @@
       >
         <h1 class="text-center font-bold text-2xl opacity-80">Furnilux</h1>
         <ul class="md:flex items-center space-x-10">
-          <li class="hidden md:block">
-            <a href="#">Home</a>
-          </li>
-          <li class="hidden md:block">
-            <a href="#">Product</a>
-          </li>
-          <li class="hidden md:block">
-            <a href="#">Service</a>
-          </li>
-          <li class="hidden md:block">
-            <a href="#">Contact us</a>
-          </li>
           <div class="flex space-x-5">
-          <li class="flex items-center" @click="cekCart()">
-            <button type="button" class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px] mr-4" fill="white" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-              Cart
-              <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{{totalBarang}}</div>
-            </button>
-          </li>
-          <li class="flex items-center" @click="clearCart()">
-            <button type="button" class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-              Clear
-            </button>
-          </li>
+            <li class="flex items-center" @click="cekCart()">
+              <button type="button" class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-[20px] h-[20px] mr-4" fill="white" viewBox="0 0 576 512"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
+                Cart
+                <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">{{totalBarang}}</div>
+              </button>
+            </li>
+            <li class="flex items-center" @click="clearCart()">
+              <button type="button" class="relative inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                Clear
+              </button>
+            </li>
           </div>
         </ul>
       </nav>
-      <div class="relative overflow-x-auto rounded-md">
 
+      <div class="relative overflow-x-auto rounded-md">
       <form class="px-8 max-w-md mx-auto mb-6">   
           <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
           <div class="relative">
@@ -109,15 +100,15 @@
           </tbody>
         </table>
       </div>
+
       <footer class="mt-12 w-full bg-[#29374a] p-4 text-white">
         <h1 class="text-center text-sm opacity-80">Furnilux © 2024</h1>
       </footer>
+
     </div>
   </div>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
-      const barangKeranjang = localStorage.getItem('totalBarang') || 0;
-
       Vue.filter('currency', function (value) {
         if (!value) return ''
         return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value)
@@ -127,8 +118,8 @@
         data: {
           keranjang: 0,
           search: '',
-          totalBarang: barangKeranjang,
           listKeranjang: [],
+          totalBarang: localStorage.getItem('totalBarang') || 0,
           product: [
             {
               id: 1,
@@ -174,12 +165,20 @@
         },
         methods: {
           tambahKeranjang(product) {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Barang Berhasil Ditambahkan",
+            const Toast = Swal.mixin({
+              toast: true,
+              position: "top",
               showConfirmButton: false,
-              timer: 500
+              timer: 500,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+              }
+            });
+            Toast.fire({
+              icon: "success",
+              title: "Barang berhasil ditambahkan"
             });
             const existingProduct = this.listKeranjang.find(item => item.id === product.id);
 
